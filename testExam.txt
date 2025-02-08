@@ -1,0 +1,27 @@
+2. Positive end-expiratory pressure (PEEP) is most commonly used to correct:
+A.  hypercapnia. 
+B.  mild hypoxemia. 
+C.  refractory hypoxemia.
+D.  respiratory acidosis.
+ANS:  c
+Topic:  mv
+Difficulty:  2
+
+7. Tension pneumothorax is most frequently found in
+A.  during mechanical ventilation and resuscitative efforts
+B.  asthma
+C.  copd
+D.  lung malignancy
+ANS:  a
+Topic:  ptx
+Difficulty:  3
+
+10. Which of the following is characteristic of pleural fluid biochemical analysis in a case of chylothorax?
+A.  ldl > 120 mg/dl
+B.  triglyceride > 110 mg/dl
+C.  hdl < 40 mg/dl
+D.  total cholesterol > 300 mg/dl
+ANS:  b
+Topic:  pl
+Difficulty:  2
+

@@ -1,0 +1,71 @@
+The most common pathogen responsible for nosocomial pneumonia in ICU is?
+A.	Gram positive organism
+B.	Gram negative organism
+C.	Mycoplasma
+D.	Virus infections
+*** B Inf. 2
+
+Positive end-expiratory pressure (PEEP) is most commonly used to correct:
+A.	Hypercapnia. 
+B.	Mild hypoxemia. 
+C.	Refractory hypoxemia.
+D.	Respiratory acidosis.
+*** C MV 2
+
+If MRSA is suspected in Patients with S. aureus infection, what is the most appropriate antibiotic in their case? 
+A.	Tetracycline. 
+B.	Erythromycin. 
+C.	Clindamycin. 
+D.	Vancomycin. 
+*** D Inf 2
+
+During pressure-controlled ventilation, an increase of airway resistance or a decrease of compliance would:
+A.	Reduce the delivered tidal volume.
+B.	Raise the peak inspiratory pressure.
+C.	Reduce the work of breathing.
+D.	Cause respiratory alkalosis.
+*** A MV 3
+
+Obstructive sleep apnea/hypopnea syndrome relates to
+A.	Unexplained excessive daytime sleepiness
+B.	Five obstructed apneas per hour of sleep.
+C.	Five obstructed hypopneas per hour of sleep
+D.	All of the above
+*** D OSA 1
+
+Which of the following confirms chronic alveolar hypoventilation?
+A.	Elevated plasma bicarbonate
+B.	Elevated PaCO2
+C.	Normal pH
+D.	All of the above
+*** D RF 2
+
+Tension pneumothorax is most frequently found in
+A.	During mechanical ventilation and resuscitative efforts
+B.	Asthma
+C.	COPD
+D.	Lung malignancy
+*** A PTX 3
+
+In pneumomediastinum, mediastinal air is absorbed faster if the patient is given
+A.	High concentrations of oxygen
+B.	CO2 inhalation
+C.	IV Hypertonic saline.
+D.	High doses of IV glucocorticoids
+*** A PTX 2
+
+Sniff test is used for the confirmation of
+A.	Unilateral paralysis of diaphragm
+B.	Bilateral diaphragmatic paralysis
+C.	Nasal polyp
+D.	Obstructive sleep apnea
+*** A DIA 1
+
+Which of the following is characteristic of pleural fluid biochemical analysis in a case of chylothorax?
+A.	LDL > 120 mg/dL
+B.	Triglyceride > 110 mg/dL
+C.	HDL < 40 mg/dL
+D.	Total cholesterol > 300 mg/dL
+*** B PL 2
+
+
