@@ -15,7 +15,6 @@ import java.util.Scanner;
  *
  * @author Mahmoud
  */
-
  
 @SuppressWarnings("unused")
 public class KEES {
@@ -268,7 +267,7 @@ public class KEES {
             int choice = Integer.parseInt(input.nextLine());
             
             if(choice == 1) {
-                boolean isSuccess = addQuestionsFromFile("C:\\Users\\Mahmoud\\Documents\\GitHub\\KEES\\src\\test.txt", conn, input);
+                boolean isSuccess = addQuestionsFromFile("test.txt", conn, input);
 
             } else if(choice == 2) {
                 boolean isSuccess = createExamWithConditions("testExam.txt", conn, input);
