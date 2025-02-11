@@ -57,7 +57,6 @@ public class DataBase {
             return conn;
     }
 
-    @SuppressWarnings("UnnecessaryContinue")
     public static boolean addQuestionsFromFile(String filePath, Connection conn, Scanner input) {
         // int id;
         String qtext = "";
