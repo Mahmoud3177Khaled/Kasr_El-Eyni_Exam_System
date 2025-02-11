@@ -102,7 +102,7 @@ public class DataBase {
                     String line = testInput.nextLine();
 
                     if(line.isEmpty()) {
-                        continue;
+                        // continue;
 
                     } else if (line.charAt(0) == 'A' && line.charAt(1) == '.') {  // a
                         c1 = line.substring(3).toLowerCase();
