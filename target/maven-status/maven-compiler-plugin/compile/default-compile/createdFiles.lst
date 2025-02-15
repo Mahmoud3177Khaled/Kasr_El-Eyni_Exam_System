@@ -1,4 +1,10 @@
 KEES\mcqQuestion.class
-KEES\KEES.class
-KEES\essayQuestion.class
+KEES\KEES$CreateExamView.class
 KEES\DataBase.class
+KEES\KEES$EssayFormView.class
+KEES\KEES$AddQuestionView.class
+KEES\KEES$ShEssayFormView.class
+KEES\KEES.class
+KEES\KEES$UpdateQuestionView.class
+KEES\essayQuestion.class
+KEES\KEES$mcqFormView.class

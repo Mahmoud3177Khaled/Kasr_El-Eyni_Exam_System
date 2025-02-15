@@ -2,14 +2,20 @@ package KEES;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.control.*;
 
 
 /**
@@ -42,99 +48,75 @@ public class KEES extends Application {
     // GUI Main
     @Override
     public void start(Stage primaryStage) {
-        VBox sidebar = new VBox(20);
-        sidebar.setPrefWidth(150);
-        sidebar.setAlignment(Pos.TOP_CENTER);
-        sidebar.setPadding(new Insets(20, 0, 0, 0));
-
-        Button addQuestionButton = new Button("Add Questions");
-        Button UpdateQuestionButton = new Button("Update Questions");
-        Button CreateExamButton = new Button("Create exam");
-        sidebar.getChildren().addAll(addQuestionButton, UpdateQuestionButton, CreateExamButton);
 
         Separator verticalSeparator = new Separator();
         verticalSeparator.setOrientation(javafx.geometry.Orientation.VERTICAL);
         verticalSeparator.setPrefHeight(600); 
 
-        HBox sidebarContainer = new HBox();
-        sidebarContainer.getChildren().addAll(sidebar, verticalSeparator);
-
-        
         BorderPane mainLayout = new BorderPane();
-        mainLayout.setLeft(sidebarContainer);
+
+        ListView<String> sidebar = new ListView<>();
+        sidebar.getItems().addAll("Add Question", "Update Question", "Create Exam");
+        sidebar.setPrefWidth(150);
+        sidebar.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                if("Add Question".equals(newVal)) {
+                    mainLayout.setCenter(new AddQuestionView());
+                    
+                } else if("Update Question".equals(newVal)) {
+                    mainLayout.setCenter(new UpdateQuestionView());
+                    
+                } else if ("Create Exam".equals(newVal)) {
+                    mainLayout.setCenter(new CreateExamView());
+
+                }
+
+            }
+        });
+
+        mainLayout.setLeft(sidebar);
         mainLayout.setCenter(new AddQuestionView());
 
-        addQuestionButton.setOnAction(
-            e -> {
-                mainLayout.setCenter(new AddQuestionView());
-            }
-        );
-        UpdateQuestionButton.setOnAction(
-            e -> {
-                mainLayout.setCenter(new UpdateQuestionView());
-            }
-        );
-        CreateExamButton.setOnAction(
-            e -> {
-                mainLayout.setCenter(new CreateExamView());
-            }
-        );
-
-
-
-        // Set up the scene and stage
         Scene scene = new Scene(mainLayout, 700, 400);
+        // scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("KEES Exam System");
         primaryStage.show();
     }
-    
-    
-
-    // public static class FeaturesSideBar extends VBox{
-    //     public FeaturesSideBar() {
-    //     }
-    // }
     
     public static class AddQuestionView extends VBox{
         public AddQuestionView() {
             
             mcqFormView mcqview = new mcqFormView();
             EssayFormView essayview = new EssayFormView();
-            ShEssayFormView shessayview = new ShEssayFormView();
             ToggleGroup tg = new ToggleGroup();
 
             RadioButton mcq = new RadioButton("MCQ Question");
             RadioButton essay = new RadioButton("Essay Question");
-            RadioButton sh_essay = new RadioButton("Short-Essay Question");
             mcq.setToggleGroup(tg);
             essay.setToggleGroup(tg);
-            sh_essay.setToggleGroup(tg);
             mcq.setSelected(true);
+            essayview.setVisible(false);
 
             tg.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
                 if (newToggle == mcq) {
-                mcqview.setVisible(true);
-                essayview.setVisible(false);
-                shessayview.setVisible(false);
-            } else if (newToggle == essay) {
-                mcqview.setVisible(false);
-                essayview.setVisible(true);
-                shessayview.setVisible(false);
-            } else if (newToggle == sh_essay) {
-                mcqview.setVisible(false);
-                essayview.setVisible(false);
-                shessayview.setVisible(true);
-            }
+                    mcqview.setVisible(true);
+                    essayview.setVisible(false);
+
+                } else if (newToggle == essay) {
+                    mcqview.setVisible(false);
+                    essayview.setVisible(true);
+
+                } 
             });
 
             HBox radioSelection = new HBox(20);
-            radioSelection.setPadding(new Insets(20, 0, 10, 10));
-            radioSelection.getChildren().addAll(mcq, essay, sh_essay);
+            radioSelection.setPadding(new Insets(10, 0, 15, 10));
+            radioSelection.getChildren().addAll(mcq, essay);
 
 
             StackPane contentPane = new StackPane();
-            contentPane.getChildren().addAll(mcqview, essayview, shessayview);
+            contentPane.getChildren().addAll(mcqview, essayview);
             contentPane.setPadding(new Insets(0, 10, 0, 10));
             mcqview.setVisible(true);
     
@@ -165,7 +147,7 @@ public class KEES extends Application {
             Label spacer = new Label("    ");
             atextField.setMaxSize(230, 45);
             atextField.setWrapText(true);
-            Label topictext = new Label("Topic/Desiese: ");
+            Label topictext = new Label("Topic/disease: ");
             TextField topictextField = new TextField();
             VBox topicBox = new VBox(topictext, topictextField);
             // topictextField.setMaxSize(230, 40);
@@ -202,7 +184,7 @@ public class KEES extends Application {
             Label dtext = new Label("Choice D: ");
             TextArea dtextField = new TextArea();
             Label spacer3 = new Label("    ");
-            Label spacer4 = new Label(" or ");
+            Label spacer4 = new Label("    ");
             spacer4.setPadding(new Insets(10, 0, 0, 0));
             dtextField.setMaxSize(230, 45);
             dtextField.setWrapText(true);
@@ -225,7 +207,7 @@ public class KEES extends Application {
 
     public static class EssayFormView extends VBox{
         public EssayFormView() {
-            Label qtext = new Label("Question: ");
+            Label qtext = new Label("Question:   ");
             TextArea qtextField = new TextArea();
             qtextField.setMaxSize(394, 60);
             qtextField.setWrapText(true);
@@ -234,140 +216,32 @@ public class KEES extends Application {
 
             /* ########################################### */
 
-            Label atext = new Label("Choice A: ");
-            TextArea atextField = new TextArea();
-            Label spacer = new Label("    ");
-            atextField.setMaxSize(230, 45);
-            atextField.setWrapText(true);
-            Label topictext = new Label("Topic/Desiese: ");
+            Label topictext = new Label("Topic:         ");
             TextField topictextField = new TextField();
-            VBox topicBox = new VBox(topictext, topictextField);
-            // topictextField.setMaxSize(230, 40);
 
-            HBox atextBox = new HBox(atext, atextField, spacer, topicBox);
+            HBox atextBox = new HBox(topictext, topictextField);
             atextBox.setPadding(new Insets(0, 0, 10, 0));
 
-            Label btext = new Label("Choice B: ");
-            TextArea btextField = new TextArea();
-            Label spacer1 = new Label("    ");
-            btextField.setMaxSize(230, 45);
-            btextField.setWrapText(true);
-            Label answertext = new Label("Answer: ");
+            Label answertext = new Label("Answer:      ");
             TextField answertextField = new TextField();
-            VBox answerBox = new VBox(answertext, answertextField);
-            // topictextField.setMaxSize(230, 40);
-
-            HBox btextBox = new HBox(btext, btextField, spacer1, answerBox);
+            
+            HBox btextBox = new HBox(answertext, answertextField);
             btextBox.setPadding(new Insets(0, 0, 10, 0));
 
-            Label ctext = new Label("Choice C: ");
-            TextArea ctextField = new TextArea();
-            Label spacer2 = new Label("    ");
-            ctextField.setMaxSize(230, 45);
-            ctextField.setWrapText(true);
-            Label difficultytext = new Label("Difficulty: ");
+            Label difficultytext = new Label("Difficulty:    ");
             TextField difficultytextField = new TextField();
-            VBox difficultyBox = new VBox(difficultytext, difficultytextField);
-            // topictextField.setMaxSize(230, 40);
+            Label spacer3 = new Label("    ");
+            Label spacer4 = new Label("    ");
+            Button addButton = new Button("Add Question");
+            Button LoadButton = new Button("Load Questions");
 
-            HBox ctextBox = new HBox(ctext, ctextField, spacer2, difficultyBox);
+            HBox difficultyBox = new HBox(addButton, spacer3, LoadButton);
+            difficultyBox.setPadding(new Insets(0, 0, 10, 0));
+
+            HBox ctextBox = new HBox(difficultytext, difficultytextField, spacer4, difficultyBox);
             ctextBox.setPadding(new Insets(0, 0, 10, 0));
 
-            Label dtext = new Label("Choice D: ");
-            TextArea dtextField = new TextArea();
-            Label spacer3 = new Label("    ");
-            Label spacer4 = new Label(" or ");
-            spacer4.setPadding(new Insets(10, 0, 0, 0));
-            dtextField.setMaxSize(230, 45);
-            dtextField.setWrapText(true);
-            Button addButton = new Button("    Add\nQuestion");
-            Button LoadButton = new Button("    Load\nQuestions");
-
-            HBox dtextBox = new HBox(dtext, dtextField, spacer3, addButton, spacer4, LoadButton);
-            dtextBox.setPadding(new Insets(0, 0, 10, 0));
-
-            /* ########################################### */
-
-
-
-
-            
-    
-            this.getChildren().addAll(qtextBox, atextBox, btextBox, ctextBox, dtextBox);
-        }
-    }
-
-    public static class ShEssayFormView extends VBox{
-        public ShEssayFormView() {
-            Label qtext = new Label("Question: ");
-            TextArea qtextField = new TextArea();
-            qtextField.setMaxSize(394, 60);
-            qtextField.setWrapText(true);
-            HBox qtextBox = new HBox(qtext, qtextField);
-            qtextBox.setPadding(new Insets(0, 0, 10, 0));
-
-            /* ########################################### */
-
-            Label atext = new Label("Choice A: ");
-            TextArea atextField = new TextArea();
-            Label spacer = new Label("    ");
-            atextField.setMaxSize(230, 45);
-            atextField.setWrapText(true);
-            Label topictext = new Label("Topic/Desiese: ");
-            TextField topictextField = new TextField();
-            VBox topicBox = new VBox(topictext, topictextField);
-            // topictextField.setMaxSize(230, 40);
-
-            HBox atextBox = new HBox(atext, atextField, spacer, topicBox);
-            atextBox.setPadding(new Insets(0, 0, 10, 0));
-
-            Label btext = new Label("Choice B: ");
-            TextArea btextField = new TextArea();
-            Label spacer1 = new Label("    ");
-            btextField.setMaxSize(230, 45);
-            btextField.setWrapText(true);
-            Label answertext = new Label("Answer: ");
-            TextField answertextField = new TextField();
-            VBox answerBox = new VBox(answertext, answertextField);
-            // topictextField.setMaxSize(230, 40);
-
-            HBox btextBox = new HBox(btext, btextField, spacer1, answerBox);
-            btextBox.setPadding(new Insets(0, 0, 10, 0));
-
-            Label ctext = new Label("Choice C: ");
-            TextArea ctextField = new TextArea();
-            Label spacer2 = new Label("    ");
-            ctextField.setMaxSize(230, 45);
-            ctextField.setWrapText(true);
-            Label difficultytext = new Label("Difficulty: ");
-            TextField difficultytextField = new TextField();
-            VBox difficultyBox = new VBox(difficultytext, difficultytextField);
-            // topictextField.setMaxSize(230, 40);
-
-            HBox ctextBox = new HBox(ctext, ctextField, spacer2, difficultyBox);
-            ctextBox.setPadding(new Insets(0, 0, 10, 0));
-
-            Label dtext = new Label("Choice D: ");
-            TextArea dtextField = new TextArea();
-            Label spacer3 = new Label("    ");
-            Label spacer4 = new Label(" or ");
-            spacer4.setPadding(new Insets(10, 0, 0, 0));
-            dtextField.setMaxSize(230, 45);
-            dtextField.setWrapText(true);
-            Button addButton = new Button("    Add\nQuestion");
-            Button LoadButton = new Button("    Load\nQuestions");
-
-            HBox dtextBox = new HBox(dtext, dtextField, spacer3, addButton, spacer4, LoadButton);
-            dtextBox.setPadding(new Insets(0, 0, 10, 0));
-
-            /* ########################################### */
-
-
-
-
-            
-    
-            this.getChildren().addAll(qtextBox, atextBox, btextBox, ctextBox, dtextBox);
+            this.getChildren().addAll(qtextBox, atextBox, btextBox, ctextBox);
         }
     }
     

@@ -1,0 +1,47 @@
+.root {
+    -fx-background-color: #f4f4f4; /* Soft gray background */
+    -fx-font-family: "Roboto", sans-serif; /* Modern font */
+}
+
+.button {
+    -fx-background-color: #0078D7; /* Modern blue */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);
+}
+
+.button:hover {
+    -fx-background-color: #005A9E; /* Darker blue on hover */
+}
+
+.text-area {
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #ccc;
+    -fx-padding: 5px;
+}
+
+.text-field {
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #ccc;
+    -fx-padding: 5px;
+}
+
+.radio-button {
+    -fx-font-size: 14px;
+}
+
+.vbox {
+    -fx-background-color: white;
+    -fx-padding: 15px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-border-color: #ddd;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
