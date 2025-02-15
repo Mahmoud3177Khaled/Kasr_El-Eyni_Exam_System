@@ -132,7 +132,7 @@ public class KEES extends Application {
         public mcqFormView() {
             Label qtext = new Label("Question: ");
             TextArea qtextField = new TextArea();
-            qtextField.setMaxSize(394, 60);
+            qtextField.setMaxSize(394, 80);
             qtextField.setWrapText(true);
             HBox qtextBox = new HBox(qtext, qtextField);
             qtextBox.setPadding(new Insets(0, 0, 10, 0));
