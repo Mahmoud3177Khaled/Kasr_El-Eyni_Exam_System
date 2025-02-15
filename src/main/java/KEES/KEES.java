@@ -60,15 +60,12 @@ public class KEES extends Application {
         sidebar.setPrefWidth(150);
         sidebar.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
-                if("Add Question".equals(newVal)) {
-                    mainLayout.setCenter(new AddQuestionView());
-                    
-                } else if("Update Question".equals(newVal)) {
-                    mainLayout.setCenter(new UpdateQuestionView());
-                    
-                } else if ("Create Exam".equals(newVal)) {
-                    mainLayout.setCenter(new CreateExamView());
-
+                switch (newVal) {
+                    case "Add Question" -> mainLayout.setCenter(new AddQuestionView());
+                    case "Update Question" -> mainLayout.setCenter(new UpdateQuestionView());
+                    case "Create Exam" -> mainLayout.setCenter(new CreateExamView());
+                    default -> {
+                    }
                 }
 
             }
