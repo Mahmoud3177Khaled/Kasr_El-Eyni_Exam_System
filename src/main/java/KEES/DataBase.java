@@ -49,7 +49,8 @@ public class DataBase {
                     qText TEXT NOT NULL,
                     topic TEXT NOT NULL,
                     ans TEXT NOT NULL,
-                    difficulty INTEGER NOT NULL
+                    difficulty INTEGER NOT NULL,
+                    type TEXT NOT NULL
                 );
                 """;
             stmt.execute(createEssayTableSQL);
@@ -57,7 +58,7 @@ public class DataBase {
             return conn;
     }
 
-    public static boolean addQuestionsFromFile(String filePath, Connection conn, Scanner input) {
+    public static boolean addQuestionsFromFile(String filePath, Connection conn) {
         // int id;
         String qtext = "";
         String c1 = "";
@@ -73,9 +74,9 @@ public class DataBase {
         System.out.println("1. MCQ");
         System.out.println("2. Essay");
         System.out.println("3. Short essay");
-        int qtype = Integer.parseInt(input.nextLine());
+        // int qtype = Integer.parseInt(input.nextLine());
         
-        if(qtype == 1) {
+        // if(qtype == 1) {
             
             // System.out.println("id: ");
             // id = Integer.parseInt(input.nextLine());
@@ -159,7 +160,7 @@ public class DataBase {
 
             }
             
-        } else if (qtype == 2) {
+        // } else if (qtype == 2) {
             
             // System.out.println("id: ");
             // id = Integer.parseInt(input.nextLine());
@@ -185,11 +186,11 @@ public class DataBase {
             // pstmt.setString(3, ans);
             // pstmt.setInt(4, difficulty);
             // pstmt.executeUpdate();
-            return true;
+            // return true;
             
-        }
+        // }
 
-        return true;
+        // return true;
     }
 
     public static boolean createExamWithConditions(String saveFilePath, Connection conn, Scanner input) {
@@ -256,6 +257,46 @@ public class DataBase {
             return false;
 
         }
+        return true;
+    }
+
+    public static boolean addMcqQuestion(String qtext, String a, String b, String c, String d, String topic, String answer, String difficulty, Connection conn) throws SQLException {
+        String sqlInsertMCQ = """
+            INSERT INTO mcqQuestions (qText, c1, c2, c3, c4, topic, ans, difficulty)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """;
+            
+        PreparedStatement pstmt = conn.prepareStatement(sqlInsertMCQ);
+        pstmt.setString(1, qtext);
+        pstmt.setString(2, a);
+        pstmt.setString(3, b);
+        pstmt.setString(4, c);
+        pstmt.setString(5, d);
+        pstmt.setString(6, topic);
+        pstmt.setString(7, answer);
+        pstmt.setInt(8, Integer.parseInt(difficulty));
+        pstmt.executeUpdate();
+
+        return true;
+    }
+
+    public static boolean addEssayQuestion(String qtext, String topic, String answer, String difficulty, String type, Connection conn) throws SQLException {
+        String sqlInsertMCQ = """
+            INSERT INTO essayQuestions (qText, topic, ans, difficulty, type)
+            VALUES (?, ?, ?, ?, ?)
+            """;
+            
+        PreparedStatement pstmt = conn.prepareStatement(sqlInsertMCQ);
+        pstmt.setString(1, qtext);
+        // pstmt.setString(3, b);
+        // pstmt.setString(4, c);
+        // pstmt.setString(5, d);
+        pstmt.setString(2, topic);
+        pstmt.setString(3, answer);
+        pstmt.setInt(4, Integer.parseInt(difficulty));
+        pstmt.setString(5, type);
+        pstmt.executeUpdate();
+
         return true;
     }
 }

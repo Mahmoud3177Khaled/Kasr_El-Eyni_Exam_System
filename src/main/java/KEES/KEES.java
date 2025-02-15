@@ -1,5 +1,9 @@
 package KEES;
 
+import java.io.File;
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -15,6 +19,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
@@ -57,6 +62,7 @@ public class KEES extends Application {
 
         ListView<String> sidebar = new ListView<>();
         sidebar.getItems().addAll("Add Question", "Update Question", "Create Exam");
+        sidebar.getSelectionModel().select(0);
         sidebar.setPrefWidth(150);
         sidebar.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
@@ -193,9 +199,78 @@ public class KEES extends Application {
 
             /* ########################################### */
 
+            addButton.setOnAction(e -> {
+                try {
+                    String qtextstr = qtextField.getText();
+                    String atextFieldstr = atextField.getText();
+                    String btextFieldstr = btextField.getText();
+                    String ctextFieldstr = ctextField.getText();
+                    String dtextFieldstr = dtextField.getText();
+                    String topictextFieldstr = topictextField.getText();
+                    String answertextFieldstr = answertextField.getText();
+                    String difficultytextFieldstr = difficultytextField.getText();
+                    
+                    // DataBase db = DataBase.getInstance();
+                    Connection conn = DataBase.CreateTabelesOneTime();
 
+                    DataBase.addMcqQuestion(qtextstr, atextFieldstr, btextFieldstr, ctextFieldstr, dtextFieldstr,
+                    topictextFieldstr, answertextFieldstr, difficultytextFieldstr, conn);
+                    
+                    qtextField.clear();
+                    atextField.clear();
+                    btextField.clear();
+                    ctextField.clear();
+                    dtextField.clear();
+                    topictextField.clear();
+                    answertextField.clear();
+                    difficultytextField.clear();
 
+                    System.out.println("added one question successfully");
+                    // System.out.println(qtextstr);
+                    // System.out.println(atextFieldstr);
+                    // System.out.println(btextFieldstr);
+                    // System.out.println(ctextFieldstr);
+                    // System.out.println(dtextFieldstr);
+                    // System.out.println(topictextFieldstr);
+                    // System.out.println(answertextFieldstr);
+                    // System.out.println(difficultytextFieldstr);
+                } catch (SQLException ex) {
+                    System.out.println(e);
+                }
+            });
 
+            LoadButton.setOnAction(e -> {
+
+                try {
+                    Connection conn = DataBase.CreateTabelesOneTime();
+                    Stage fileStage = new Stage();
+                    
+                    FileChooser fileChooser = new FileChooser();
+                    fileChooser.setTitle("Select a File");
+
+                    // Set extension filters (optional)
+                    fileChooser.getExtensionFilters().addAll(
+                        new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+                        new FileChooser.ExtensionFilter("Word Documents", "*.docx"),
+                        new FileChooser.ExtensionFilter("All Files", "*.*")
+                    );
+
+                    // Show open file dialog
+                    File selectedFile = fileChooser.showOpenDialog(fileStage);
+                    
+                    // Check if a file was selected
+                    if (selectedFile != null) {
+                        
+                        DataBase.addQuestionsFromFile(selectedFile.getAbsolutePath(), conn);
+
+                        System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+                    }
+
+                } catch (SQLException e1) {
+                    System.out.println(e);
+                }
+            });
+            
             
     
             this.getChildren().addAll(qtextBox, atextBox, btextBox, ctextBox, dtextBox);
@@ -216,7 +291,12 @@ public class KEES extends Application {
             Label topictext = new Label("Topic:         ");
             TextField topictextField = new TextField();
 
-            HBox atextBox = new HBox(topictext, topictextField);
+            Label spacing0 = new Label("    ");
+
+            Label typetext = new Label("Type:      ");
+            TextField typetextField = new TextField();
+
+            HBox atextBox = new HBox(topictext, topictextField, spacing0, typetext, typetextField);
             atextBox.setPadding(new Insets(0, 0, 10, 0));
 
             Label answertext = new Label("Answer:      ");
@@ -237,6 +317,61 @@ public class KEES extends Application {
 
             HBox ctextBox = new HBox(difficultytext, difficultytextField, spacer4, difficultyBox);
             ctextBox.setPadding(new Insets(0, 0, 10, 0));
+
+            addButton.setOnAction(e -> {
+                try {
+                    String qtextstr = qtextField.getText();
+                    String typetextFieldstr = typetextField.getText();
+                    String topictextFieldstr = topictextField.getText();
+                    String answertextFieldstr = answertextField.getText();
+                    String difficultytextFieldstr = difficultytextField.getText();
+                    
+                    Connection conn = DataBase.CreateTabelesOneTime();
+
+                    DataBase.addEssayQuestion(qtextstr, topictextFieldstr, answertextFieldstr, difficultytextFieldstr, typetextFieldstr, conn);
+                    
+                    qtextField.clear();
+                    topictextField.clear();
+                    answertextField.clear();
+                    difficultytextField.clear();
+                    typetextField.clear();
+
+                    System.out.println("added one question successfully");
+                    // System.out.println(qtextstr);
+                    // System.out.println(atextFieldstr);
+                    // System.out.println(btextFieldstr);
+                    // System.out.println(ctextFieldstr);
+                    // System.out.println(dtextFieldstr);
+                    // System.out.println(topictextFieldstr);
+                    // System.out.println(answertextFieldstr);
+                    // System.out.println(difficultytextFieldstr);
+                } catch (SQLException ex) {
+                    System.out.println(e);
+                }
+            });
+
+            LoadButton.setOnAction(e -> {
+
+                Stage fileStage = new Stage();
+
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Select a File");
+
+                // Set extension filters (optional)
+                fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+                    new FileChooser.ExtensionFilter("Word Documents", "*.docx"),
+                    new FileChooser.ExtensionFilter("All Files", "*.*")
+                );
+
+                // Show open file dialog
+                File selectedFile = fileChooser.showOpenDialog(fileStage);
+
+                // Check if a file was selected
+                if (selectedFile != null) {
+                    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+                }
+            });
 
             this.getChildren().addAll(qtextBox, atextBox, btextBox, ctextBox);
         }
